@@ -13,7 +13,7 @@ echo '¿$edad es un array? ' . (is_array($edad) ? "Sí" : "No") . "</br>";
 // Usa is_array() para verificar cada una de ellas
 $miArray = ["COMIDA","DORMIR"]; // Reemplaza esto con tu propio array
 $miString = "Quiero comer un asado el sabado"; // Reemplaza esto con tu propio string
-$miNumero = 80; // Reemplaza esto con tu propio número
+$miNumero = 81; // Reemplaza esto con tu propio número
 
 echo "</br>Resultados del ejercicio:</br>";
 echo '¿$miArray es un array? ' . (is_array($miArray) ? "Sí" : "No") . "</br>";
