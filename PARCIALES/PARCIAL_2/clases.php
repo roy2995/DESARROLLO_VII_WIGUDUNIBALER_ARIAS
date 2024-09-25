@@ -24,28 +24,62 @@ class Tarea {
 class GestorTareas {
     private $tareas = [];
 
+
     public function cargarTareas() {
         $json = file_get_contents('tareas.json');
         $data = json_decode($json, true);
         foreach ($data as $tareaData) {
-            $tarea = new Tarea($tareaData);
-            $this->tareas[] = $tarea;
+
+            switch($tareaData['tipo']){
+                case 'Desarrollo':
+                    $tarea = new TareaDesarrollo($tareaData);
+                    $this->tareas[] = $tarea;
+                break;
+                case 'Diseño':
+                    $tarea = new TareaDiseño($tareaData);
+                    $this->tareas[] = $tarea;
+                break;
+                case 'Testing':
+                    $tarea = new TareaTesting($tareaData);
+                    $this->tareas[] = $tarea;
+                break;
+
+            }
         }
-        
         return $this->tareas;
     }
 
 
     public function agregarTarea($tarea){
-        
+ 
+        switch($tarea['tipo']){
+            case 'Desarrollo':
+                $nuevaTarea = new TareaDesarrollo($tarea);
+            break;
+            case 'Diseño':
+                $nuevaTarea = new TareaDiseño($tarea);
+            break;
+            case 'Testing':
+                $nuevaTarea = new TareaTesting($tarea);
+            break;
+        }       
+        $this->tareas[] = $nuevaTarea;
     }
 
 
     public function eliminarTarea($id) {
-     // Se elimina La tare de la lista de areelgos y en JSONjjj
+    
+        $ListaNueva = array_filter($this->tareas,function($tarea, $id){
+            if ($tarea['id'] <> $id){
+               return $tarea; 
+            }
+        });
+
+        $this->tareas[] = $ListaNueva;
     }
 
     public function actualizarTarea($tarea){
+
         // Se actuliza los datos en JSON
     }
 
