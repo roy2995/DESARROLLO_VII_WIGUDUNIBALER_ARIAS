@@ -37,7 +37,7 @@ class GestorTareas {
 
 
     public function agregarTarea($tarea){
-        //Se Agrega las Tarreas
+        
     }
 
 

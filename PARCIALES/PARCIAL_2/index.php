@@ -18,10 +18,13 @@ $filterEstado = isset($_GET['filterEstado']) ? $_GET['filterEstado'] : '';
 
 $tareas = null;
 
+$gestorTareas = new GestorTareas();        
+
 // Procesar la acción
 switch ($action) {
     case 'add':
         // Los estudiantes deben implementar esta lógica
+        $gestorTareas ->agregarTarea($tareaEnEdicion);
         break;
 
     case 'edit':
