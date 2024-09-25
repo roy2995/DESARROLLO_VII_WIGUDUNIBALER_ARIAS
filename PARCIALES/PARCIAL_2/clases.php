@@ -34,15 +34,43 @@ class GestorTareas {
         
         return $this->tareas;
     }
+
+
+    public function agregarTarea($tarea){
+        //Se Agrega las Tarreas
+    }
+
+
+    public function eliminarTarea($id) {
+     // Se elimina La tare de la lista de areelgos y en JSONjjj
+    }
+
+    public function actualizarTarea($tarea){
+        // Se actuliza los datos en JSON
+    }
+
+    public function actualizarEstadoTarea($id, $nuevoEstado){
+        // Se acutliza el estado de tarea
+    }
+
+
+    public function buscarTareasPorEstado($estado){
+        // Buscar Tareas por estados 
+    }
+
+    public function listarTareas($filtroEstado = '') {
+
+    }
 }
 
-
+// Implementar:
+// 1. La interfaz Detalle
 interface Detalles{
     public function obtenerDetallesEspecificos();
 }
-
-
-class TareaDesarrollo extends Tarea {
+// 2. Modificar la clase Tarea para implementar la interfaz Detalle
+// 3. Las clases TareaDesarrollo, TareaDiseno y TareaTesting que hereden de Tarea
+class TareaDesarrollo extends Tarea implements Detalles {
     private $lenguaje;    
     
     public function __construct($lenguaje){
@@ -56,26 +84,34 @@ class TareaDesarrollo extends Tarea {
     public function setLenguaje($lenguaje) {
         $this->lenguaje = trim($lenguaje);
     }
+
+    public function obtenerDetallesEspecificos(){
+        //devuelva una cadena con los detalles particulares de cada tipo de tarea.
+    }
 }
 
-class TareaDiseño extends Tarea {
+class TareaDiseño extends Tarea implements Detalles {
      private $herramientaDiseno;    
-    
     public function __construct($herramientaDiseno){
         $this->setHerramientaDiseno($herramientaDiseno);
     }
-
     public function  getHerramientaDiseno() {
         return $this->herramientaDiseno;
     }
-
     public function setHerramientaDiseno($herramientaDiseno) {
         $this->herramientaDiseno = trim($herramientaDiseno);
     }
 
+    public function obtenerDetallesEspecificos(){
+        //devuelva una cadena con los detalles particulares de cada tipo de tarea.
+    }
+
 }
 
-// Implementar:
-// 1. La interfaz Detalle
-// 2. Modificar la clase Tarea para implementar la interfaz Detalle
-// 3. Las clases TareaDesarrollo, TareaDiseno y TareaTesting que hereden de Tarea
+class TareaTesting extends Tarea implements Detalles {
+
+    public function obtenerDetallesEspecificos(){
+        //devuelva una cadena con los detalles particulares de cada tipo de tarea.
+    }
+
+}
