@@ -23,12 +23,22 @@ $gestorTareas = new GestorTareas();
 // Procesar la acción
 switch ($action) {
     case 'add':
-        // Los estudiantes deben implementar esta lógica
+        // $tipo = $_GET['tipo'];
+        // $titulo = $_GET['titulo'];
+        // $descripcion = $_GET['descripcion'];
+        // $prioridad = $_GET['prioridad'];
+
+        // switch($tipo){
+        //     case 'dsarollo':
+        //         $lenguageProgramacion = $_GET['lenguageProgramacion'];
+        //         $tarea = new TareaDesarrollo(['id' => $tareaEnEdicion.id,'titulo' => $titulo, 'descripcion' => $descripcion, 'prioridad' => $prioridad, 'lenguaje' => $lenguageProgramacion]);
+        // }
+
         $gestorTareas ->agregarTarea($tareaEnEdicion);
         break;
 
     case 'edit':
-        // Los estudiantes deben implementar esta lógica
+        $gestorTareas ->actualizarTarea($tareaEnEdicion);
         break;
 
     case 'delete':
