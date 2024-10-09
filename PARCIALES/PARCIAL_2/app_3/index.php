@@ -12,6 +12,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['action'])) {
         switch ($_POST['action']) {
             case 'add':
+                $id = count($gestorBlog->obtenerEntradas()) + 1;
+                $fecha_creacion = date('Y-m-d');
+                $tipo = $_POST['tipo'];
+
+                if ($tipo == 1) {
+                    $entrada = new EntradaUnaColumna(
+                        $id,
+                        $fecha_creacion,
+                        $_POST['titulo'],
+                        $_POST['descripcion']
+                    );
+                } elseif ($tipo == 2) {
+                    $entrada = new EntradaDosColumnas(
+                        $id,
+                        $fecha_creacion,
+                        $_POST['titulo1'],
+                        $_POST['descripcion1'],
+                        $_POST['titulo2'],
+                        $_POST['descripcion2']
+                    );
+                } elseif ($tipo == 3) {
+                    $entrada = new EntradaTresColumnas(
+                        $id,
+                        $fecha_creacion,
+                        $_POST['titulo1'],
+                        $_POST['descripcion1'],
+                        $_POST['titulo2'],
+                        $_POST['descripcion2'],
+                        $_POST['titulo3'],
+                        $_POST['descripcion3']
+                    );
+                }
+                $gestorBlog->agregarEntrada($entrada);
+                $mensaje = "Entrada agregada con éxito.";
+                $action = "list";
+                break;
+
             case 'edit':
                 // Asegurarse de que el tipo esté definido
                 if (!isset($_POST['tipo'])) {
@@ -19,23 +56,64 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     break;
                 }
 
-                // Implementar la lógica
+                $id = $_POST['id'];
+                $fecha_creacion = $_POST['fecha_creacion'];
+                $tipo = $_POST['tipo'];
+                switch ($tipo){
+                    case 1 :
+                        $entrada = new EntradaUnaColumna(
+                        $id,
+                        $fecha_creacion,
+                        $_POST['titulo'],
+                        $_POST['descripcion']
+                    );
+                    break;
+                    case 2:
+                        $entrada = new EntradaDosColumnas(
+                        $id,
+                        $fecha_creacion,
+                        $_POST['titulo1'],
+                        $_POST['descripcion1'],
+                        $_POST['titulo2'],
+                        $_POST['descripcion2']
+                    );
+                    break;
+                case 3:
+                    $entrada = new EntradaDosColumnas(
+                        $id,
+                        $fecha_creacion,
+                        $_POST['titulo1'],
+                        $_POST['descripcion1'],
+                        $_POST['titulo2'],
+                        $_POST['descripcion2']
+                    );
+                    break;
 
+                    
+                }
+                $gestorBlog->editarEntrada($entrada);
+                $mensaje = "Entrada editada con éxito.";
+                $action = "list";
                 break;
         }
     }
 }
 
 if ($action === 'delete' && isset($_GET['id'])) {
-    // Implementar la lógica
+    
+     $gestorBlog->eliminarEntrada($_GET['id']);
     $mensaje = "Entrada eliminada con éxito.";
     $action = "list";
+
 }
 
 if (($action === 'move_up' || $action === 'move_down') && isset($_GET['id'])) {
     // Implementar la lógica
+    $direccion = $action === 'move_up' ? 'up' : 'down';
+    $gestorBlog->moverEntrada($_GET['id'], $direccion);
     $mensaje = "Entrada reordenada con éxito.";
     $action = "list";
+
 }
 
 $entradas = $gestorBlog->obtenerEntradas();
